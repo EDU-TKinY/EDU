@@ -1,1 +1,14 @@
-<Context reloadable="true"/>
+<?xml version="1.0" encoding="UTF-8" ?>
+<Context>
+  <Resource
+      name="jdbc/world"
+      auth="Container"
+      type="javax.sql.DataSource"
+      driverClassName="com.mysql.jdbc.Driver"
+      url="jdbc:mysql://localhost:3306/world"
+      connectionProperties="autoReconnect=true;verifyServerCertificate=false;useSSL=false;requireSSL=false"
+      username="world"
+      password="world"
+      validationQuery="select 1"
+       reloadable="true"/>
+ </Context>
