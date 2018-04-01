@@ -4,6 +4,9 @@
 
     <%@ page import="Class.*"%>
     <%@ page import="javax.management.Query"%>
+
+    <%@ page import="java.util.Arrays"%>
+    <%@ page import="java.util.List"%>
     <%@ page import="java.util.ArrayList"%>
     <%@ page import="java.util.Collections"%>
 
@@ -15,9 +18,13 @@
 
 <script type="text/javascript">
 function ChangeTab(tabname){
-document.getElementById('1').style.display='none';
-document.getElementById('2').style.display='none';
-document.getElementById('3').style.display='none';
+<%
+int Element_ID = 0;
+for(Element_ID = 0; Element_ID < 15; Element_ID++){%>
+document.getElementById('<%=Element_ID+1%>').style.display='none';
+<%}%>
+//document.getElementById('2').style.display='none';
+//document.getElementById('3').style.display='none';
 
 document.getElementById(tabname).style.display='block';
 }
@@ -63,18 +70,7 @@ for(int i = 0; i < 15; i++){
 	推定値：<%= acc.students.get(ID).Study[i].getEv() %>
 <br>
 <%
-//session.getAttribute("accID")なるものを使う
 }
-//PersistenceManager pm = null;
-//try {
-//pm = PMF.get().getPersistenceManager();
-//Query query1 = pm.newQuery(Account.class);
-
-//List<Account> accs = (List<Account>) query1.execute();
-//} finally {
-//	if (pm != null && !pm.isClosed())
-//			pm.close();
-//}
 
 %>
 
@@ -84,102 +80,77 @@ for(int i = 0; i < 15; i++){
 <div class ="content">
 
 <p id="tab">
-	<a href="#1" class="1" onclick="ChangeTab('1');return false;">1</a>
+<%int tab = 0;
+for(tab = 0; tab < 15; tab++){%>
+	<a href="#<%=tab+1%>" class="<%=tab+1%>" onclick="ChangeTab('<%=tab+1%>');return false;"><%=tab+1%></a>
+<%}%>
+
+	<!--
 	<a href="#2" class="2" onclick="ChangeTab('2');return false;">2</a>
 	<a href="#3" class="3" onclick="ChangeTab('3');return false;">3</a>
+	<a href="#4" class="4" onclick="ChangeTab('4');return false;">4</a>
+	<a href="#5" class="5" onclick="ChangeTab('5');return false;">5</a>
+	<a href="#6" class="6" onclick="ChangeTab('6');return false;">6</a>
+	<a href="#7" class="7" onclick="ChangeTab('7');return false;">7</a>
+	<a href="#8" class="8" onclick="ChangeTab('8');return false;">8</a>
+	<a href="#9" class="9" onclick="ChangeTab('9');return false;">9</a>
+	<a href="#10" class="10" onclick="ChangeTab('10');return false;">10</a>
+	<a href="#11" class="11" onclick="ChangeTab('11');return false;">11</a>
+	<a href="#12" class="12" onclick="ChangeTab('12');return false;">12</a>
+	<a href="#13" class="13" onclick="ChangeTab('13');return false;">13</a>
+	<a href="#14" class="14" onclick="ChangeTab('14');return false;">14</a>
+	<a href="#15" class="15" onclick="ChangeTab('15');return false;">15</a>
+ -->
 </p>
 
 
-<%int flag = 0; %>
-
-
-	<div id="1" class="content">
-1週目<br>
 <%
+//List<List<Double>> Stu_list = new ArrayList<List<Double>>();
+List<double[]> Stu_list = new ArrayList<double[]>();
+double[] list= new double[15];
 
-week = 0;
+int flag = 0;
+int weeks = 0;
+int loop = 0;
 
-ArrayList<Double> list1 = new ArrayList<Double>();
-for(Student stu : acc.students) {
-	list1.add(stu.Study[week].getEv());
-}
-Collections.sort(list1);
+for(weeks = 0; weeks < 15; weeks++){
 
-flag = 0;
-for(Double Ev : list1){
-	%>
-	<%= Ev %>
-<%if(Ev == acc.students.get(ID).Study[week].getEv() && flag == 0){%>
-←you
-<%
-flag = 1;
-} %>
-
-	<br>
-<%
-}
 %>
-</div>
-
-
-<div id="2" class="content">
-2週目<br>
+<div id="<%=weeks+1%>" class="content">
 <%
-week = 1;
-flag = 0;
-
-ArrayList<Double> list2 = new ArrayList<Double>();
-for(Student stu : acc.students) {
-	list2.add(stu.Study[week].getEv());
-}
-Collections.sort(list2);
-
-
-for(Double Ev : list2){
-	%>
-
-	<%= Ev %>
-
-<%if(Ev == acc.students.get(ID).Study[week].getEv() && flag == 0){%>
-←you
-<%
-flag = 1;
-} %>
-	<br>
-<%
-}
+//System.out.println("");
+//System.out.println(weeks+1);
 %>
+
+<%=weeks+1 %>週目<br>
+<%
+//Stu_list.add(new ArrayList<Double>(15));
+//Stu_list.add(@ArrayList list);
+		loop=0;
+		for(Student stu : acc.students){
+			//Stu_list.get(weeks).add(stu.Study[loop++].getEv());//上書きじゃなくてaddだからエラー？
+			//Stu_list[15] = stu.Study[loop++].getEv();
+			list[loop]
+					=
+					stu.Study[loop].//こいつがだめらしい
+					getEv();//やっぱだめ、原因は配列オーバーぽい
+			loop++;
+			}
+		Stu_list.add(list);
+		Arrays.sort(list);//ここでぬるぽ
+		//Collections.sort(Stu_list.get(weeks));
+
+	for(Double Ev : Stu_list.get(weeks)){%>
+<%=Ev%>
+<%if(Ev == acc.students.get(ID).Study[weeks].getEv() && flag == 0){%>←you<%flag = 1;}%><br>
+<%}flag = 0;%>
 </div>
-
-<div id="3" class="content">
-3週目<br>
-<%
-week = 2;
-flag = 0;
-
-ArrayList<Double> list3 = new ArrayList<Double>();
-for(Student stu : acc.students) {
-	list3.add(stu.Study[week].getEv());
-}
-Collections.sort(list3);
-
-for(Double Ev : list3){
-	%>
-
-	<%= Ev %>
-
-<%if(Ev == acc.students.get(ID).Study[week].getEv() && flag == 0){%>
-←you
-<%
-flag = 1;
-} %>
-<br>
-<%
-}
-%>
-</div>
+<%}%>
 
 </div>
+<!--
+<a href="login_main.jsp" onclick="<%acc.load_data();session.setAttribute("acc",acc);%>">更新</a>
+ -->
 
 <script type="text/javascript">
 ChangeTab('1');
