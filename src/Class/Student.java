@@ -140,11 +140,10 @@ public class Student {
 
 	public void save_data(int ID) {
 		try {
-			File file = new File("././students/Student" + ID + ".txt");
+			File file = new File("./students/Student" + ID + ".txt");
 
 			//String filea = new File(".").getAbsoluteFile().getParent();
 			//File file = new File(filea + "" + ID + ".txt");
-
 			if(!file.exists()) {
 				file.createNewFile();
 			}
