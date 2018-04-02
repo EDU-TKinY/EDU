@@ -49,11 +49,9 @@ public class StudySitu{
 	public void setRelation(double relation) {
 		Relation = relation;
 	}
-
 	public double getEv() {
 		return Ev;
 	}
-
 	public void setEv() {
 		CalEv1();
 	}

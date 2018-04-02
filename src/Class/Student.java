@@ -50,21 +50,21 @@ public class Student {
 		Study[week].setEv();
 	}
 
-	public void setInfo() {
-		System.out.println("目標点と関連科目の成績を教えてください（変更不可）");
+	public void setInfo(double rela) {
+		//System.out.println("目標点と関連科目の成績を教えてください（変更不可）");
 
 		for(int week = 0; week < 15; week++) {
 			Study[week].setGoal(60);
-			Study[week].setRelation(15);
+			Study[week].setRelation(rela);
 			Study[week].setEv();
 		}
-		System.out.println("情報を保存しました");
+		//System.out.println("情報を保存しました");
 	}
 
 	public void setRog(int Week, double Under, double Time) {
 		Study[Week].setUnderstand(Under);
 		Study[Week].setStudyTime(Time);
-		Study[Week].setEv();
+		//Study[Week].setEv();
 		save_data(ID);
 	}
 
@@ -136,6 +136,7 @@ public class Student {
 				Study[Week].CalEv2(Under*0.5);
 			}
 		}
+		save_data(ID);
 	}
 
 	public void save_data(int ID) {

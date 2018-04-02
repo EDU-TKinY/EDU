@@ -26,10 +26,10 @@ public class Account{
 		Stu_ID = 0;
 	}
 
-public void make_account(int id, String pass) {
+public void make_account(int id, String pass,double average) {
 	student = new Student(id,pass);
 	students.add(student);
-	student.setInfo();
+	student.setInfo(average);
 	student.save_data(id);
 	System.out.println("新規学生 ID = " + id + "パスワード = " + pass + "を登録しました");
 }
@@ -187,6 +187,7 @@ public void action() {
 
 	int ID;
 	String pass;
+	double average;
 
 	System.out.println("どちらを行いますか");
 	System.out.println("新規アカウント作成:1 ログイン:2");
@@ -197,7 +198,9 @@ public void action() {
 		System.out.println("パスワードを入力してください(文字列,数字)");
 		Scanner Pass = new Scanner(System.in);
 		pass = Pass.next();
-		make_account(Stu_ID, pass);
+		Scanner ave = new Scanner(System.in);
+		average = ave.nextDouble();
+		make_account(Stu_ID, pass,average);
 
 		System.out.println("立ち上げ直してください");
 	}
