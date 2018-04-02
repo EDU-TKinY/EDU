@@ -38,6 +38,7 @@ public class MakeRog_servlet extends HttpServlet {
 		//String ID = session.getAttribute("ID");
 		int ID = (Integer)session.getAttribute("ID");
 		acc.students.get(ID).setRog(week,under,time);
+		acc.students.get(ID).CalSitu2(week);
 		session.setAttribute("acc", acc);
 
 		response.sendRedirect("login_main.jsp");

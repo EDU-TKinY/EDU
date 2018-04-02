@@ -62,32 +62,20 @@ public class Login_servlet extends HttpServlet {
 		//doGet(request, response);
 		response.setContentType("text/html;charset=UTF-8");
 
-
 		HttpSession session = request.getSession();
 		String ID = request.getParameter("ID");
 		int Id = Integer.parseInt(ID);
 		String PASS = request.getParameter("PASS");
 
+
 		boolean flag = false;
-
-		//Account acc = (Account)session.getAttribute("acc");
-		//ArrayList<Student>student = acc.students;
-
 		   for(Student stu : Account.students){
-			   //System.out.print(stu.getId() + "  ");
-			   //System.out.println(stu.getPass());
-
 			   // アカウントとパスワードが一致したならば
 			   if(Id == stu.getId()){
 				   if( PASS.equals(stu.getPass()) ){
 					   flag = true;
 					   session.setAttribute("ID", stu.getId());
 					   System.out.print("login Success!");
-					   //session.setAttribute("access",String.valueOf(flag));
-					   //session.setAttribute("password",acc.getPassword());
-					   // = acc.getAcc_Id();
-					   //flag = 1;
-					   //System.out.println(accID);
 					   break;
 
 				   }else{
@@ -112,6 +100,14 @@ public class Login_servlet extends HttpServlet {
 				out.println("</head>");
 				out.println("<body>");
 				out.println("<p>IDとパスワードが一致しません</p>");
+				//再ログインここに書く
+
+				out.println("<form action=\"Login_servlet\" method=\"post\">");
+				out.println("ID<input type=\"text\" name=\"ID\" maxlength=\"30\"><br>");
+				out.println("PASS<input type=\"password\" name=\"PASS\" maxlength=\"30\"><br>");
+				out.println("<input type=\"submit\" value=\"Submit\" />");
+				out.println("</form>");
+
 				out.println("<p><a href=\"Hello.jsp\">最初の画面に戻る</a></p>");
 				out.println("</body>");
 				out.println("</html>");

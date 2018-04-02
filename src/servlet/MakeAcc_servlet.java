@@ -35,17 +35,16 @@ public class MakeAcc_servlet extends HttpServlet {
 		String PASS = request.getParameter("PASS");
 
 		String R1 = request.getParameter("Relation_1");
-		double r1 = Integer.parseInt(R1);
+		double r1 = Double.parseDouble(R1);
 		String R2 = request.getParameter("Relation_2");
-		double r2 = Integer.parseInt(R2);
+		double r2 = Double.parseDouble(R2);
 
-		r1 = r2;
-		r2 = r1;
+		double average = (r1+r2)/2;
 
 		HttpSession session = request.getSession();
 		//HttpSession session = session;
 		Account acc = (Account)session.getAttribute("acc");
-		acc.make_account(acc.Stu_ID, PASS);
+		acc.make_account(acc.Stu_ID, PASS,average);
 
 		//request.setAttribute("acc",acc);
 		session.setAttribute("acc",acc);
