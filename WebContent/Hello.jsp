@@ -17,35 +17,35 @@
 </head>
 <body>
 
-<%= new java.util.Date() %>
-<br>
 <%
 Account acc = new Account();
 acc.load_data();
 //String filea = new File(".").getAbsoluteFile().getParent();
 //System.out.println(filea);
-
 session.setAttribute("acc",acc);
-for(Student stu : acc.students){
 %>
-<%=stu.getId() +"  "%>
-<%=stu.getPass() %><br>
-<%
-}
-//request.setAttribute("acc", acc);
-%>
+
 <br>
 
 	アカウント作成：
 	アカウント作成の情報を入力してください
 	<form action="./MakeAcc_servlet" method="post">
-		パスワード<input type="text" name="PASS" maxlength="30"><br>
+<table>
+	<tr>
+		<td>パスワード</td>
+		<td><input type="text" name="PASS" maxlength="30"><br></td>
+	</tr>
 
-		関連科目1<input type="text" name="Relation_1" maxlength="30"><br>
-		関連科目2<input type="text" name="Relation_2" maxlength="30"><br>
-
+	<tr>
+		<td>関連科目1の成績</td><td><input type="text" name="Relation_1" maxlength="30"></td>
+	</tr>
+	<tr>
+		<td>関連科目2の成績</td><td><input type="text" name="Relation_2" maxlength="30"></td>
+	</tr>
+</table>
     <input type="submit" value="Submit" />
 	</form>
+
 
 <a href="Hello.jsp" >利用登録</a>
 

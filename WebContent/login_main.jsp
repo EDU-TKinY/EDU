@@ -23,49 +23,71 @@ int Element_ID = 0;
 for(Element_ID = 0; Element_ID < 15; Element_ID++){%>
 document.getElementById('<%=Element_ID+1%>').style.display='none';
 <%}%>
-//document.getElementById('2').style.display='none';
-//document.getElementById('3').style.display='none';
-
 document.getElementById(tabname).style.display='block';
 }
-
 </script>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>学習状況管理ページ</title>
 </head>
 <body>
-学習状況の入力
-	<form action="./MakeRog_servlet" method="post">
-	週
-		<input type="text" name="Week" maxlength="30"><br>
-	理解度
-		<input type="text" name="Under" maxlength="30"><br>
-	学習時間
-		<input type="text" name="Time" maxlength="30"><br>
-    <input type="submit" value="Submit" />
-	</form>
 
-<br>
 
-学習状況の表示
-<br>
 <%
 Account acc = (Account)session.getAttribute("acc");
 int ID = (Integer)session.getAttribute("ID");
 int week = 0;
+int thisweek = (Integer)session.getAttribute("Week");
+%>
 
+
+学習状況の入力(その週に既に1度書き込んでる場合、何も起こりません)
+	<form action="./MakeRog_servlet" method="post">
+<table>
+<tr>
+	<td>週</td><td><input type="text" name="Week" maxlength="30"></td>
+</tr>
+<tr>
+	<td>理解度</td><td><input type="text" name="Under" maxlength="30"></td>
+</tr>
+<tr>
+	<td>学習時間</td><td><input type="text" name="Time" maxlength="30"></td>
+</tr>
+</table>
+    <input type="submit" value="Submit" />
+	</form>
+
+<br>学習状況の表示<br>
+
+<%
+if(thisweek != -1){
+if(acc.students.get(ID).Study[thisweek].getEv() < 60 && acc.students.get(ID).Study[thisweek].getUnderstand()!=0.0){
+%>
+追加でおおよそ<%=acc.students.get(ID).Support(thisweek)%>分の学習が必要と思われます。
+<%
+}
+}
+%>
+
+<table>
+
+<%
 for(int i = 0; i < 15; i++){%>
-	<%= i+1 %>週目
-	理解度：<%= acc.students.get(ID).Study[i].getUnderstand() +"   "%>
-	学習時間：<%= acc.students.get(ID).Study[i].getStudyTime()+"   " %>
-	推定値：<%= acc.students.get(ID).Study[i].getEv() %>
-<br>
+
+<tr>
+<td><%= i+1 %>週目</td>
+<%if(acc.students.get(ID).Study[i].getStudyTime() != 0.0){ %>
+<td>理解度：</td><td><%= acc.students.get(ID).Study[i].getUnderstand() +" "%></td>
+<td>学習時間：</td><td><%= acc.students.get(ID).Study[i].getStudyTime()+" " %></td>
+<td>推定値：</td><td><%= acc.students.get(ID).Study[i].getEv() %></td>
 <%}%>
+</tr>
+<%}%>
+</table>
 
 <br><br>
-他の学生との比較
+他の学生との推定値比較
 
 <div class ="content">
 
@@ -91,7 +113,7 @@ for(weeks = 0; weeks < 15; weeks++){%>
 		for(Student stu : acc.students){
 			Stu_list[loop++] = stu.Study[weeks].getEv();
 			}
-		Arrays.sort(Stu_list);//ここでぬるぽ
+		Arrays.sort(Stu_list);
 	for(double Ev : Stu_list){
 %>
 <%=Ev%>
@@ -99,8 +121,8 @@ for(weeks = 0; weeks < 15; weeks++){%>
 <%}flag = 0;%></div><%}%>
 
 </div>
-<%System.out.println(acc.students.size());%>
-<a href="login_main.jsp" onclick="<%/*Account ac = new Account();*/acc.students.clear();acc.load_data();session.setAttribute("acc",acc);%>">更新</a>
+<!-- <%System.out.println(acc.students.size());%> -->
+<a href="login_main.jsp" onclick="<%acc.students.clear();acc.load_data();session.setAttribute("acc",acc);%>">更新</a>
 <script type="text/javascript">ChangeTab('1');</script>
 
 </body>
