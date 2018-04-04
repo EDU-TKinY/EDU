@@ -35,11 +35,18 @@ public class MakeRog_servlet extends HttpServlet {
 		double time = Double.parseDouble(Time);
 
 		Account acc = (Account)session.getAttribute("acc");
-		//String ID = session.getAttribute("ID");
+		session.setAttribute("Week", week);
+
 		int ID = (Integer)session.getAttribute("ID");
+
+		System.out.println("time="+time);
+		System.out.println("under="+under);
+
+		if(acc.students.get(ID).Study[week].getStudyTime() == 0) {
 		acc.students.get(ID).setRog(week,under,time);
 		acc.students.get(ID).CalSitu2(week);
 		session.setAttribute("acc", acc);
+		}
 
 		response.sendRedirect("login_main.jsp");
 	}

@@ -40,15 +40,17 @@ public class MakeAcc_servlet extends HttpServlet {
 		double r2 = Double.parseDouble(R2);
 
 		double average = (r1+r2)/2;
+		double Rela = average/4;
 
 		HttpSession session = request.getSession();
 		//HttpSession session = session;
 		Account acc = (Account)session.getAttribute("acc");
-		acc.make_account(acc.Stu_ID, PASS,average);
+		acc.make_account(acc.Stu_ID, PASS,Rela);
 
 		//request.setAttribute("acc",acc);
 		session.setAttribute("acc",acc);
 		session.setAttribute("ID",acc.Stu_ID);
+		session.setAttribute("Week", -1);
 
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE html>");

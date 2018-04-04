@@ -66,6 +66,7 @@ public class Login_servlet extends HttpServlet {
 		String ID = request.getParameter("ID");
 		int Id = Integer.parseInt(ID);
 		String PASS = request.getParameter("PASS");
+		session.setAttribute("Week", -1);
 
 
 		boolean flag = false;
