@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import javax.servlet.annotation.WebServlet;
@@ -26,11 +27,11 @@ public class Student {
 	public Student(int id, String pass) {
 		ID = id;
 		Pass = pass;
-		System.out.println("student done");
+		//System.out.println("student done");
 		for(int i = 0; i < 15; i++) {
 		Study[i] = new StudySitu();
 		}
-		System.out.println("situation done");
+		//System.out.println("situation done");
 	}
 
 	public int getId() {
@@ -41,13 +42,13 @@ public class Student {
 		return Pass;
 	}
 
-	public void setSitu(int week, double goal, double relation, double studytime, double understand) {
+	public void setSitu(int week, double goal, double relation, double understand, double studytime, double ev) {
 		//System.out.println("week = "+ (week));
 		Study[week].getGoal();
 		Study[week].setRelation(relation);
 		Study[week].setUnderstand(understand);
 		Study[week].setStudyTime(studytime);
-		Study[week].setEv();
+		Study[week].setEv(ev);
 	}
 
 	public void setInfo(double rela) {
@@ -56,7 +57,7 @@ public class Student {
 		for(int week = 0; week < 15; week++) {
 			Study[week].setGoal(60);
 			Study[week].setRelation(rela);
-			Study[week].setEv();
+			Study[week].setEv(0);
 		}
 		//System.out.println("情報を保存しました");
 	}
@@ -65,6 +66,7 @@ public class Student {
 		Study[Week].setUnderstand(Under);
 		Study[Week].setStudyTime(Time);
 		//Study[Week].setEv();
+		CalSitu2(Week);
 		save_data(ID);
 	}
 
@@ -83,8 +85,27 @@ public class Student {
 		Support(week);
 	}
 
-	public void Support(int Week) {
-		System.out.println("推定点は"+ Study[Week].getEv() +"です");
+	public int Support(int Week) {
+		double Under_sum = 0;
+		double Time_sum = 0;
+		double Study_Ef = 0.0;
+		int week = 0;
+
+		for(week = 1; week < Week; week++) {
+			Under_sum += Study[week-1].getUnderstand();
+			Time_sum += Study[week-1].getStudyTime();
+		}
+		Study_Ef = (Under_sum/week)/(Time_sum/week);
+
+		double sup = (60-Study[Week].getEv()) / (0.18+(Study_Ef*0.06));
+
+		BigDecimal support = new BigDecimal(sup);
+		BigDecimal bd1 = support.setScale(0,BigDecimal.ROUND_UP);
+		int Support = 0;
+		Support = bd1.intValue();
+
+		return Support;
+		//System.out.println("推定点は"+ Study[Week].getEv() +"です");
 	}
 
 	public void login() {
@@ -126,13 +147,16 @@ public class Student {
 		if(Week > 0) {
 			double 	Under = (Study[Week].Understand + Study[Week-1].Understand)/2;
 			if(Study[Week].Understand >= Study[Week-1].Understand) {
+				System.out.println("up");
 				Study[Week].CalEv2(Under*1.5);
 			}
 
 			if(Study[Week].Understand == Study[Week-1].Understand) {
+				System.out.println("keep");
 				Study[Week].CalEv2(Under);
 			}
 			if(Study[Week].Understand <= Study[Week-1].Understand) {
+				System.out.println("down");
 				Study[Week].CalEv2(Under*0.5);
 			}
 		}
@@ -152,6 +176,7 @@ public class Student {
 				FileWriter fw = new FileWriter(file);
 				BufferedWriter bw = new BufferedWriter(fw);
 
+				System.out.println(ID);
 				bw.write(ID + " " + Pass);
 				bw.newLine();
 				for(int i = 0; i < 15; i++) {
@@ -159,7 +184,9 @@ public class Student {
 					bw.write(Study[i].getGoal() + " ");
 					bw.write(Study[i].getRelation() + " ");
 					bw.write(Study[i].getUnderstand() + " ");
+					//System.out.print("save Under="+ i + " "+Study[i].getUnderstand()+" ");
 					bw.write(Study[i].getStudyTime()+" ");
+					//System.out.println("Time="+Study[i].getStudyTime());
 					bw.write(Study[i].getEv()+"");
 					bw.newLine();
 				}

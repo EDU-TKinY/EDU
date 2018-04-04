@@ -49,7 +49,7 @@ public void load_data() {
 
 	try {
 		File dir = new File("./students/");//ディレクトリを選択
-		System.out.println("dirname = "+ dir.getParent());
+		//System.out.println("dirname = "+ dir.getParent());
 		File[] files = dir.listFiles();//その中身を保持
 
 		if(files == null){//1つもファイルがない場合の処理
@@ -59,20 +59,20 @@ public void load_data() {
 
 		int i = 0;
 		while(i!=files.length) {
-		System.out.println(files[i].getName());
+		//System.out.println(files[i].getName());
 		i++;
 		}
 
-		System.out.println("Loaded");
+		//System.out.println("Loaded");
 
 		for(File file : files) {
-			if(file.isDirectory()) {System.out.println("Dir open");}
-			if(file.isFile()) {System.out.println("File open");}
+			if(file.isDirectory()) {/*System.out.println("Dir open");*/}
+			if(file.isFile()) {/*System.out.println("File open");*/}
 
 			if(!file.exists())continue;//ファイルがないなら次
 			else if(file.isFile()) {//ファイルがある
-				System.out.print("Hello:");
-				System.out.println(file.getName());
+				//System.out.print("Hello:");
+				//System.out.println(file.getName());
 
 				//読み込み処理
 				FileReader fr = new FileReader(file);
@@ -86,7 +86,7 @@ public void load_data() {
 					Student student = new Student(id,array[1]);
 					//1行目ここまで
 
-					System.out.println(id + " " + array[1]);
+					//System.out.println("ID:"+id);
 
 					while((str = lnr.readLine()) != null) {
 					//2行目を順にStudySituに入れる
@@ -99,13 +99,14 @@ public void load_data() {
 					ev = Double.parseDouble(array[5]);
 
 
-					System.out.println(week + " "+ goal+" "+relation+" "+understand+" "+studytime+" "+ev);
-					student.setSitu(week-1,goal,relation,understand,studytime);
+					//System.out.println(week + " "+ goal+" "+relation+" "+understand+" "+studytime+" "+ev);
+					//System.out.println("load" + week + " "+"under:"+understand+"time:"+studytime+" ");
+					student.setSitu(week-1,goal,relation,understand,studytime, ev);
 				}
 				students.add(student);
 				lnr.close();
-				System.out.println("next");
-				System.out.println();
+				//System.out.println("next");
+				//System.out.println();
 			}
 
 		}
@@ -113,6 +114,7 @@ public void load_data() {
 		}catch(IOException e) {
 			System.out.println(e);
 		}
+	System.out.println("Loaded");
 	Stu_ID = id+1;
 	return;
 	}

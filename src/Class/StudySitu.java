@@ -52,14 +52,17 @@ public class StudySitu{
 	public double getEv() {
 		return Ev;
 	}
-	public void setEv() {
-		CalEv1();
+	public void setEv(double ev) {
+		//CalEv1();
+		Ev = ev;
+
 	}
 
 
 
 	public void CalEv1() {
-		Ev = 3.08 * Relation + 0.16 * Understand + 0.18 * StudyTime;
+		//Ev = 3.08 * Relation + 0.16 * Understand + 0.18 * StudyTime;
+		Ev = 3.08 * Relation + 0.16 * Understand + 0.06 * StudyTime;
 		BigDecimal ev = new BigDecimal(Ev);
 		BigDecimal bd1 = ev.setScale(3,BigDecimal.ROUND_HALF_UP);
 		Ev = bd1.doubleValue();
@@ -67,7 +70,8 @@ public class StudySitu{
 	}
 
 	public void CalEv2(double CalUnder) {
-		Ev = 3.08 * Relation + 0.16 * CalUnder + 0.18 * StudyTime;
+		//Ev = 3.08 * Relation + 0.16 * CalUnder + 0.18 * StudyTime;
+		Ev = 3.08 * Relation + 0.16 * CalUnder + 0.06 * StudyTime;
 		BigDecimal ev = new BigDecimal(Ev);
 		BigDecimal bd1 = ev.setScale(3,BigDecimal.ROUND_HALF_UP);
 		Ev = bd1.doubleValue();
