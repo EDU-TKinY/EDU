@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,27 +28,64 @@ public class MakeRog_servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
+		request.setCharacterEncoding("UTF-8");
+
 		String Week = request.getParameter("Week");
-		int week = Integer.parseInt(Week)-1;
-		String Under = request.getParameter("Under");
-		double under = Double.parseDouble(Under);
+		//String Under = request.getParameter("Under");
+		String Word1 = request.getParameter("word1");
+		String Word2 = request.getParameter("word2");
+		String Word3 = request.getParameter("word3");
+		String Exp1 = request.getParameter("exp1");
+		String Exp2 = request.getParameter("exp2");
+		String Exp3 = request.getParameter("exp3");
+
+
+
+
 		String Time = request.getParameter("Time");
+
+		if(Week.equals("") || /*Under.equals("") ||*/ Time.equals("")) {
+				//error;
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"UTF-8\">");
+		out.println("<title>エラー</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<p>週か時間が未記入です</p>");
+		out.println("<p><a href=\"login_main.jsp\">前のページに戻る</a></p>");
+		out.println("</body>");
+		out.println("</html>");
+		}else {
+
+
+		int week = Integer.parseInt(Week)-1;
+		//double under = Double.parseDouble(Under);
 		double time = Double.parseDouble(Time);
+
 
 		Account acc = (Account)session.getAttribute("acc");
 		session.setAttribute("Week", week);
 
 		int ID = (Integer)session.getAttribute("ID");
 
+		//System.out.println("under="+under);
 		System.out.println("time="+time);
-		System.out.println("under="+under);
 
-		if(acc.students.get(ID).Study[week].getStudyTime() == 0) {
-		acc.students.get(ID).setRog(week,under,time);
+		if(acc.students.get(ID).Study[week].getStudyTime() == 0) { //テキストファイルのその週の学習時間が0なら書き込む
+		acc.students.get(ID).setRog(week,0,time);
 		acc.students.get(ID).CalSitu2(week);
 		session.setAttribute("acc", acc);
+
+		acc.students.get(ID).save_know(Word1, Word2, Word3, Exp1, Exp2, Exp3, week);
+
+
+
 		}
 
 		response.sendRedirect("login_main.jsp");
+		}
 	}
 }

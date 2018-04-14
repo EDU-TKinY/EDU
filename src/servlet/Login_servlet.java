@@ -62,12 +62,36 @@ public class Login_servlet extends HttpServlet {
 		//doGet(request, response);
 		response.setContentType("text/html;charset=UTF-8");
 
+
+
 		HttpSession session = request.getSession();
 		String ID = request.getParameter("ID");
-		int Id = Integer.parseInt(ID);
 		String PASS = request.getParameter("PASS");
-		session.setAttribute("Week", -1);
 
+		if(ID.equals("") || PASS.equals("")) {
+			PrintWriter out = response.getWriter();
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<meta charset=\"UTF-8\">");
+			out.println("<title>エラー</title>");
+			out.println("</head>");
+			out.println("<body>");
+
+			out.println("<form action=\"Login_servlet\" method=\"post\">");
+			out.println("ID<input type=\"text\" name=\"ID\" maxlength=\"30\"><br>");
+			out.println("PASS<input type=\"password\" name=\"PASS\" maxlength=\"30\"><br>");
+			out.println("<input type=\"submit\" value=\"Submit\" />");
+			out.println("</form>");
+
+			out.println("<p>未記入の項目があります</p>");
+			out.println("<p><a href=\"login_main.jsp\">前のページに戻る</a></p>");
+			out.println("</body>");
+			out.println("</html>");
+		}else {
+
+			int Id = Integer.parseInt(ID);
+			session.setAttribute("Week", -1);
 
 		boolean flag = false;
 		   for(Student stu : Account.students){
@@ -109,13 +133,13 @@ public class Login_servlet extends HttpServlet {
 				out.println("<input type=\"submit\" value=\"Submit\" />");
 				out.println("</form>");
 
-				out.println("<p><a href=\"Hello.jsp\">最初の画面に戻る</a></p>");
+				//out.println("<p><a href=\"Hello.jsp\">最初の画面に戻る</a></p>");
 				out.println("</body>");
 				out.println("</html>");
 		   }
 
 
 	}
-
+	}
 
 }
