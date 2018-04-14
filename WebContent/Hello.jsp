@@ -33,7 +33,7 @@ session.setAttribute("acc",acc);
 <table>
 	<tr>
 		<td>パスワード</td>
-		<td><input type="text" name="PASS" maxlength="30"><br></td>
+		<td><input type="password" name="PASS" maxlength="30"><br></td>
 	</tr>
 
 	<tr>

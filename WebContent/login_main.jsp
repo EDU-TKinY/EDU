@@ -72,12 +72,10 @@ int thisweek = (Integer)session.getAttribute("Week");
 
 <%
 if(thisweek != -1){
-if(acc.students.get(ID).Study[thisweek].getEv() < 60 &&
-		acc.students.get(ID).
-		Study[thisweek].
-		getUnderstand()!=0.0){
+if(acc.students.get(ID).Study[thisweek].getEv() < 60/* &&
+		acc.students.get(ID).Study[thisweek].getUnderstand()!=0.0*/){
 %>
-追加でおおよそ<%=acc.students.get(ID).Support(thisweek)%>分の学習が必要と思われます。(本実装までお待ち下さい)
+追加でおおよそ<%=acc.students.get(ID).Support(thisweek)%>分の学習が必要と思われます。
 <%}}%>
 
 <br>
