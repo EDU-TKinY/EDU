@@ -20,6 +20,12 @@ public class Account{
 
 	public Student student;
 	public static ArrayList<Student> students = new ArrayList<Student>();
+	//public ArrayList<Subject> subjects = new ArrayList<Subject>();
+	//public ArrayList<students> stu_sub = new ArrayList<students>();
+	public ArrayList<Subject> subjects = new ArrayList<Subject>();//科目とそれを履修する学生をひとまとめにする
+	//subjects.add(students);で追加すればよい？
+
+
 	public int Stu_ID;
 
 	public Account() {
@@ -49,20 +55,23 @@ public void load_data() {
 
 	try {
 		File dir = new File("./students/");//ディレクトリを選択
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
 		//System.out.println("dirname = "+ dir.getParent());
 		File[] files = dir.listFiles();//その中身を保持
 
 		if(files == null){//1つもファイルがない場合の処理
 			System.out.println("ファイル無し");
-			return;
-		}
+		}else {
 
-		int i = 0;
+		//int i = files.length;
+		/*
 		while(i!=files.length) {
-		//System.out.println(files[i].getName());
+		//System.out.println(files[i].getName()); //ファイル名の総呼び出し
 		i++;
 		}
-
+		 */
 		//System.out.println("Loaded");
 
 		for(File file : files) {
@@ -110,7 +119,7 @@ public void load_data() {
 			}
 
 		}
-
+		}
 		}catch(IOException e) {
 			System.out.println(e);
 		}

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,15 @@ public class Student {
 	private int ID;
 	private String Pass;
 	public StudySitu[] Study = new StudySitu[15];
+	public ArrayList<Subject> subject = new ArrayList<Subject>();
+	//先行科目の成績をここに？
+	//科目クラス ID, 科目名, 先行科目, 知識(岡田先輩)
+	//汎用性のメモ
+	//
+
+
+
+	//講義名に関する情報を持たせる？
 
 	public Student() {
 		//Study = new StudySitu[15];
@@ -89,7 +99,7 @@ public class Student {
 		double Under_sum = 0;
 		double Time_sum = 0;
 		double Study_Ef = 0.0;
-		int week = 0;
+		int week = 1;
 
 		for(week = 1; week < Week; week++) {
 			Under_sum += Study[week-1].getUnderstand();
@@ -101,10 +111,10 @@ public class Student {
 
 		BigDecimal support = new BigDecimal(sup);
 		BigDecimal bd1 = support.setScale(0,BigDecimal.ROUND_UP);
-		int Support = 0;
-		Support = bd1.intValue();
+		int Sup = 0;
+		Sup = bd1.intValue();
 
-		return Support;
+		return Sup;
 		//System.out.println("推定点は"+ Study[Week].getEv() +"です");
 	}
 
@@ -163,8 +173,62 @@ public class Student {
 		save_data(ID);
 	}
 
+
+	public void save_know(String w1, String w2,String  w3,String  e1,String  e2,String e3, int week) {
+		try {
+
+
+			//認知度の情報をテキストファイルに書き込む
+
+			File file = new File("./students/Student"+ ID +"/");
+			if(!file.exists()) {
+				file.mkdir();
+			}
+			file = new File("./students/Student" + ID + "/" + week + ".txt");
+
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+
+				FileWriter fw = new FileWriter(file);
+				BufferedWriter bw = new BufferedWriter(fw);
+
+				bw.write(w1);
+				bw.newLine();
+				bw.write(e1);
+				bw.newLine();
+				bw.newLine();
+
+				bw.write(w2);
+				bw.newLine();
+				bw.write(e2);
+				bw.newLine();
+				bw.newLine();
+
+				bw.write(w3);
+				bw.newLine();
+				bw.write(e3);
+				bw.newLine();
+				bw.newLine();
+
+				//イメージ
+				//1	arusu
+				//1 60 13 50 180
+
+				bw.close();
+		}catch(IOException e) {
+			System.out.println(e);
+		}
+		System.out.println("Saved!");
+	}
+
+
 	public void save_data(int ID) {
 		try {
+
+			//学習状況をテキストファイルに書き込む
+
+
 			File file = new File("./students/Student" + ID + ".txt");
 
 			//String filea = new File(".").getAbsoluteFile().getParent();
