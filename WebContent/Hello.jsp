@@ -37,18 +37,16 @@ session.setAttribute("acc",acc);
 	</tr>
 
 	<tr>
-		<td>関連科目1の成績</td><td><input type="text" name="Relation_1" maxlength="30"></td>
+		<td>プログラミング基礎の成績</td><td><input type="text" name="Relation_1" maxlength="30"></td>
 	</tr>
 	<tr>
-		<td>関連科目2の成績</td><td><input type="text" name="Relation_2" maxlength="30"></td>
+		<td>プログラミング基礎演習の成績</td><td><input type="text" name="Relation_2" maxlength="30"></td>
 	</tr>
 </table>
     <input type="submit" value="Submit" />
 	</form>
 
-
-<a href="Hello.jsp" >利用登録</a>
-
+<br><br>
 
 	ログイン：
 	ログイン情報を入力してください
@@ -59,5 +57,9 @@ session.setAttribute("acc",acc);
     <input type="submit" value="Submit" />
 	</form>
 
+<br>
+<br>
+開発者：瀧下<br>
+連絡先：g18tk009@yamanashi.ac.jp<br>
 </body>
 </html>
