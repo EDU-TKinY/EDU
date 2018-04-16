@@ -180,11 +180,11 @@ public class Student {
 
 			//認知度の情報をテキストファイルに書き込む
 
-			File file = new File("./students/Student"+ ID +"/");
+			File file = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/Student"+ ID +"/");
 			if(!file.exists()) {
 				file.mkdir();
 			}
-			file = new File("./students/Student" + ID + "/" + week + ".txt");
+			file = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/Student" + ID + "/" + week + ".txt");
 
 			if(!file.exists()) {
 				file.createNewFile();
@@ -229,7 +229,7 @@ public class Student {
 			//学習状況をテキストファイルに書き込む
 
 
-			File file = new File("./students/Student" + ID + ".txt");
+			File file = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/Student" + ID + ".txt");
 
 			//String filea = new File(".").getAbsoluteFile().getParent();
 			//File file = new File(filea + "" + ID + ".txt");

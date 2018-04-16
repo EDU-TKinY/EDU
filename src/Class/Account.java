@@ -54,7 +54,7 @@ public void load_data() {
 	double ev;
 
 	try {
-		File dir = new File("./students/");//ディレクトリを選択
+		File dir = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students");//ディレクトリを選択
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
