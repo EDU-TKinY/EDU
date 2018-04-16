@@ -85,7 +85,7 @@ public class Login_servlet extends HttpServlet {
 			out.println("</form>");
 
 			out.println("<p>未記入の項目があります</p>");
-			out.println("<p><a href=\"login_main.jsp\">前のページに戻る</a></p>");
+			out.println("<p><a href=\"Hello.jsp\">前のページに戻る</a></p>");
 			out.println("</body>");
 			out.println("</html>");
 		}else {

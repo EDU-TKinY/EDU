@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Context>
+<Context reloadble="true">
   <Resource
-      name="jdbc/world"
+      name="jdbc/EDUDB"
       auth="Container"
       type="javax.sql.DataSource"
-      driverClassName="com.mysql.jdbc.Driver"
-      url="jdbc:mysql://localhost:3306/world"
+      driverClassName="org.h2.Driver"
+      url="jdbc:h2:~/git/EDU/EDUDB"
       connectionProperties="autoReconnect=true;verifyServerCertificate=false;useSSL=false;requireSSL=false"
-      username="world"
-      password="world"
+      username="okada"
+      password=""
       validationQuery="select 1"
        reloadable="true"/>
  </Context>
