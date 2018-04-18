@@ -12,7 +12,6 @@
     <%@ page import="java.math.BigDecimal"%>
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,32 +33,35 @@ document.getElementById(tabname).style.display='block';
 </head>
 <body>
 
-
 <%
 Account acc = (Account)session.getAttribute("acc");
 int ID = (Integer)session.getAttribute("ID");
 int week = 0;
 int thisweek = (Integer)session.getAttribute("Week");
-%>
 
+acc.students.clear();
+acc.load_data();
+session.setAttribute("acc",acc);
+
+%>
 
 学習状況の入力(その週に既に1度書き込んでる場合、何も起こりません)
 	<form action="./MakeRog_servlet" method="post" accept-charset="UTF-8">
 <table>
 <tr>
-	<td>週</td><td><input type="text" name="Week" maxlength="30"></td>
+	<td>週</td><td><input type="number" name="Week" min="1" max="15"></td>
 </tr>
 <tr>
-	<td>学習時間</td><td><input type="text" name="Time" maxlength="30"></td>
+	<td>学習時間</td><td><input type="number" name="Time" maxlength="3">分</td>
 </tr>
 <tr>
-		<td>重要だと思った単語1</td><td><input type="text" name="word1"></td>
+		<td>重要だと思った単語1</td><td><input type="text" name="word1" maxlength="15"></td>
 		<td>単語1説明</td><td><input type="text" name="exp1" maxlength="50"></td>
 		</tr><tr>
-		<td>重要だと思った単語2</td><td><input type="text" name="word2" maxlength="30"></td>
+		<td>重要だと思った単語2</td><td><input type="text" name="word2" maxlength="15"></td>
 		<td>単語2説明</td><td><input type="text" name="exp2" maxlength="50"></td>
 		</tr><tr>
-		<td>重要だと思った単語3</td><td><input type="text" name="word3" maxlength="30"></td>
+		<td>重要だと思った単語3</td><td><input type="text" name="word3" maxlength="15"></td>
 		<!-- <td>単語3説明</td><td><input type="text" name="Under" maxlength="50"></td> -->
 		<td>単語3説明</td><td><textarea name="exp3"></textarea></td>
 
@@ -70,13 +72,6 @@ int thisweek = (Integer)session.getAttribute("Week");
 
 <br>学習状況の表示<br>
 
-<%
-if(thisweek != -1){
-if(acc.students.get(ID).Study[thisweek].getEv() < 60/* &&
-		acc.students.get(ID).Study[thisweek].getUnderstand()!=0.0*/){
-%>
-追加でおおよそ<%=acc.students.get(ID).Support(thisweek)%>分の学習が必要と思われます。
-<%}}%>
 
 <br>
 
@@ -85,15 +80,15 @@ if(acc.students.get(ID).Study[thisweek].getEv() < 60/* &&
 <tr>
 <td><%= i+1 %>週目</td>
 </tr>
-<% if(acc.students.get(ID).Study[i].getStudyTime() != 0.0){ %>
+<% if(acc.students.get(ID).Study[i].getStudyTime() != 1.0){ %>
 <tr>
 <td>
 理解度：|
-<% for(int roop = 0; roop < acc.students.get(ID).Study[i].getUnderstand() / 5 ; roop++){%>+<%}%>
-<% for(int space = 0; space < 20-(acc.students.get(ID).Study[i].getUnderstand() / 5) ; space++){%><font color=white>+</font><%}%>
+<% for(int roop = 0; roop < acc.students.get(ID).Study[i].getUnderstand() / 5 ; roop++){%><%}%>
+実装までお待ち下さい
+<% for(int space = 0; space < 20-(acc.students.get(ID).Study[i].getUnderstand() / 5) ; space++){%><font color=white></font><%}%>
 |
 </td>
-
 </tr>
 
 <tr>
@@ -165,34 +160,3 @@ if(point_roop == decimal){%>←you<%}%><br>
 </html>
 
 
-
-<!--
-%
-/*
-double[] Stu_list = new double[acc.students.size()];
-int flag = 0;
-int weeks = 0;
-int loop = 0;
-for(weeks = 0; weeks < 15; weeks++){*/
-><div id="
-%=//weeks+1%>" class="content">
-%=//weeks+1 %>週目<br>
-%
-/*
-		loop=0;
-		for(Student stu : acc.students){
-			Stu_list[loop++] = stu.Study[weeks].getEv();
-			}
-		Arrays.sort(Stu_list);
-	for(double Ev : Stu_list){
-*/
-%>
-%=//Ev%>
-%//if(Ev == acc.students.get(ID).Study[weeks].getEv() && flag == 0){%>←you
-%//flag = 1;}%><br>
-%//}flag = 0;%></div>
-%//}%>
--->
-
-</div>
-<!-- %);/*))System.out.println(acc.students.size());*/%> -->
