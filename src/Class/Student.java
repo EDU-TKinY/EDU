@@ -99,13 +99,13 @@ public class Student {
 		double Under_sum = 0;
 		double Time_sum = 0;
 		double Study_Ef = 0.0;
-		int week = 1;
+		int week = 0;
 
-		for(week = 1; week < Week; week++) {
-			Under_sum += Study[week-1].getUnderstand();
-			Time_sum += Study[week-1].getStudyTime();
+		for(week = 0; week < Week; week++) {
+			Under_sum += Study[week].getUnderstand();
+			Time_sum += Study[week].getStudyTime();
 		}
-		Study_Ef = (Under_sum/week)/(Time_sum/week);
+		Study_Ef = (Under_sum/(week+1))/(Time_sum/(week+1));
 
 		double sup = (60-Study[Week].getEv()) / (0.18+(Study_Ef*0.06));
 
@@ -173,7 +173,6 @@ public class Student {
 		save_data(ID);
 	}
 
-
 	public void save_know(String w1, String w2,String  w3,String  e1,String  e2,String e3, int week) {
 		try {
 
@@ -184,7 +183,8 @@ public class Student {
 			if(!file.exists()) {
 				file.mkdir();
 			}
-			file = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/Student" + ID + "/" + week + ".txt");
+
+			file = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/Student" + ID + "/" + (week+1) + ".txt");
 
 			if(!file.exists()) {
 				file.createNewFile();
@@ -240,7 +240,7 @@ public class Student {
 				FileWriter fw = new FileWriter(file);
 				BufferedWriter bw = new BufferedWriter(fw);
 
-				System.out.println(ID);
+				//System.out.println(ID);
 				bw.write(ID + " " + Pass);
 				bw.newLine();
 				for(int i = 0; i < 15; i++) {
@@ -263,7 +263,7 @@ public class Student {
 		}catch(IOException e) {
 			System.out.println(e);
 		}
-		System.out.println("Saved!");
+		//System.out.println("Saved!");
 	}
 
 	}

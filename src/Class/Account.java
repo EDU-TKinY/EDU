@@ -25,7 +25,6 @@ public class Account{
 	public ArrayList<Subject> subjects = new ArrayList<Subject>();//科目とそれを履修する学生をひとまとめにする
 	//subjects.add(students);で追加すればよい？
 
-
 	public int Stu_ID;
 
 	public Account() {
@@ -33,6 +32,12 @@ public class Account{
 	}
 
 public void make_account(int id, String pass,double average) {
+
+	//
+	//int ID = students.size();
+	//System.out.println(ID);
+	//
+
 	student = new Student(id,pass);
 	students.add(student);
 	student.setInfo(average);
@@ -54,7 +59,7 @@ public void load_data() {
 	double ev;
 
 	try {
-		File dir = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students");//ディレクトリを選択
+		File dir = new File("/opt/apache-tomcat-9.0.6/webapps/EDU/students/");//ディレクトリを選択
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
@@ -75,8 +80,8 @@ public void load_data() {
 		//System.out.println("Loaded");
 
 		for(File file : files) {
-			if(file.isDirectory()) {/*System.out.println("Dir open");*/}
-			if(file.isFile()) {/*System.out.println("File open");*/}
+			//if(file.isDirectory()) {/*System.out.println("Dir open");*/}
+			//if(file.isFile()) {/*System.out.println("File open");*/}
 
 			if(!file.exists())continue;//ファイルがないなら次
 			else if(file.isFile()) {//ファイルがある
