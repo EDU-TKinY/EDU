@@ -68,6 +68,9 @@ public class Login_servlet extends HttpServlet {
 		String ID = request.getParameter("ID");
 		String PASS = request.getParameter("PASS");
 
+		PASS = escapeHTML(PASS);
+
+
 		if(ID.equals("") || PASS.equals("")) {
 			PrintWriter out = response.getWriter();
 			out.println("<!DOCTYPE html>");
@@ -85,7 +88,7 @@ public class Login_servlet extends HttpServlet {
 			out.println("</form>");
 
 			out.println("<p>未記入の項目があります</p>");
-			out.println("<p><a href=\"Hello.jsp\">前のページに戻る</a></p>");
+			out.println("<p><a href=\"login_main.jsp\">前のページに戻る</a></p>");
 			out.println("</body>");
 			out.println("</html>");
 		}else {
@@ -140,6 +143,17 @@ public class Login_servlet extends HttpServlet {
 
 
 	}
+	}
+	public static String escapeHTML(String str) {
+		if(str == null)return "";
+
+		str = str.replaceAll("&", "& amp;");
+		str = str.replaceAll("<", "& lt;");
+		str = str.replaceAll(">", "& gt;");
+		str = str.replaceAll("\"","& quot;");
+		str = str.replaceAll("'", "& apos;");
+
+		return str;
 	}
 
 }

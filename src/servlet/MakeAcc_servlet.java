@@ -28,7 +28,7 @@ public class MakeAcc_servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 
-		System.out.println("make_acc?");
+		//System.out.println("make_acc?");
 
 		response.setContentType("text/html;charset=UTF-8");
 
@@ -56,7 +56,7 @@ public class MakeAcc_servlet extends HttpServlet {
 		out.println("</form>");
 
 		out.println("<p>未記入の項目があります</p>");
-		out.println("<p><a href=\"Hello.jsp\">前のページに戻る</a></p>");
+		out.println("<p><a href=\"index.jsp\">前のページに戻る</a></p>");
 		out.println("</body>");
 		out.println("</html>");
 		}else {
